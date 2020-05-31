@@ -10,6 +10,19 @@ export const updateSpec = (ori) => (...args) => {
 }
 
 export default function(system) {
+  const importFromURL = (url) => {
+    if(url) {
+      return fetch(url)
+        .then(res => res.text())
+        .then(text => {
+          system.specActions.updateSpec(text)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+
   // setTimeout runs on the next tick
   setTimeout(() => {
     if(localStorage.getItem(CONTENT_KEY)) {
@@ -26,7 +39,8 @@ export default function(system) {
         system.specActions.updateSpec(PetstoreYaml)
       }
     } else {
-      system.specActions.updateSpec(PetstoreYaml)
+      // system.specActions.updateSpec(PetstoreYaml)
+      importFromURL('http://localhost:3001/api-document')
     }
   }, 0)
   return {
@@ -41,5 +55,19 @@ export default function(system) {
 }
 
 function saveContentToStorage(str) {
+  fetch('http://localhost:3001/api-document', {
+    method: 'put',
+    body: str,
+    headers: {
+      'content-type': 'application/text'
+    }
+  })
+  .then(res => res.text())
+  .then(text => {
+    system.specActions.updateSpec(text)
+  })
+  .catch(err => {
+    console.log(err)
+  })
   return localStorage.setItem(CONTENT_KEY, str)
 }
