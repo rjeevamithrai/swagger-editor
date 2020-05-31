@@ -41,13 +41,18 @@ export default class EditorLayout extends React.Component {
 
     const UIBaseLayout = getComponent("BaseLayout", true)
     const EditorContainer = getComponent("EditorContainer", true)
-    const SplitPaneMode = getComponent("SplitPaneMode", true)
+    const SplitPaneMode = getComponent("SplitPaneMode", true) 
 
     const Container = getComponent("Container")
 
     return (
       <div className="swagger-editor">
         <Container className="container">
+          <SplitPaneMode>
+            <EditorContainer onChange={this.onChange} />
+            <UIBaseLayout/>
+          </SplitPaneMode>
+          {/*
           <Dropzone
             className="dropzone"
             accept=".yaml,application/json"
@@ -73,6 +78,7 @@ export default class EditorLayout extends React.Component {
             }
           }}
           </Dropzone>
+        */}
         </Container>
       </div>
     )

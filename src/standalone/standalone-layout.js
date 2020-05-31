@@ -15,8 +15,10 @@ export default class StandaloneLayout extends React.Component {
 
     return (
       <div>
+        {/*
         <Topbar />
-        <EditorLayout/>
+        */}
+      <EditorLayout/>
       </div>
     )
   }
